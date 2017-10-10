@@ -48,12 +48,21 @@ public class EchoServerTest {
     }
 
     @Test
-    public void returnsReversedEcho() {
+    public void printsReversedSingleWord() {
         EchoServer echoServer = new EchoServer();
 
         echoServer.printReversedEcho("hello");
 
         assertEquals("olleh\n", outContent.toString());
+    }
+
+    @Test
+    public void printsReversedMultipleWords() {
+        EchoServer echoServer = new EchoServer();
+
+        echoServer.printReversedEcho("Hello World");
+
+        assertEquals("dlroW olleH\n", outContent.toString());
     }
 
 }

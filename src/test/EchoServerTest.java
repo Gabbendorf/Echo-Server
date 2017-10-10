@@ -1,13 +1,11 @@
 package test;
 
 import main.EchoServer;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.io.PrintStream;
 
 import static org.junit.Assert.assertEquals;
@@ -15,18 +13,12 @@ import static org.junit.Assert.assertEquals;
 public class EchoServerTest {
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final String usersInput = "hello";
-    private final InputStream stdin = System.in;
+    private final String usersInput = "\nhello";
 
     @Before
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
         System.setIn(new ByteArrayInputStream(usersInput.getBytes()));
-    }
-
-    @After
-    public void cleanUpStreams() {
-        System.setOut(null);
     }
 
     @Test
@@ -41,9 +33,23 @@ public class EchoServerTest {
     @Test
     public void returnsUsersInput() {
         EchoServer echoServer = new EchoServer();
+        String input = "hello";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         String usersInput = echoServer.getWords();
 
+        assertEquals("hello", usersInput);
+    }
+
+    @Test
+    public void emptyStringIsNotAccepted(){
+        EchoServer echoServer = new EchoServer();
+        String input = "\nhello";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+
+        String usersInput = echoServer.getWords();
+
+        assertEquals("Please type at least 1 word:\n", outContent.toString());
         assertEquals("hello", usersInput);
     }
 

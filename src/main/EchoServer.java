@@ -11,10 +11,16 @@ public class EchoServer {
     }
 
     public String getWords() {
-        return in.nextLine();
+        String words = in.nextLine();
+        while (words.length() == 0) {
+            System.out.println("Please type at least 1 word:");
+            words = in.nextLine();
+        }
+        return words;
     }
 
     public void printReversedEcho(String usersWords) {
         System.out.println(new StringBuilder(usersWords).reverse().toString());
     }
+
 }

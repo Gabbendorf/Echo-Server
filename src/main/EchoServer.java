@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class EchoServer {
 
-    Scanner in = new Scanner(System.in);
+    private Scanner in = new Scanner(System.in);
 
     public void promptToType() {
         System.out.println("Hi! Please type anything:");

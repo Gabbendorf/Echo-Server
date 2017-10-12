@@ -18,11 +18,12 @@ public class EchoServer {
         promptToType();
         printReversedEcho(getWords());
     }
-    public void promptToType() {
+
+    private void promptToType() {
         this.output.println("Hi! Please type anything:");
     }
 
-    public String getWords() {
+    private String getWords() {
         String words = input.nextLine();
         while (words.length() == 0) {
             this.output.println("Please type at least 1 word:");
@@ -31,7 +32,7 @@ public class EchoServer {
         return words;
     }
 
-    public void printReversedEcho(String usersWords) {
+    private void printReversedEcho(String usersWords) {
         this.output.println(new StringBuilder(usersWords).reverse().toString());
     }
 }

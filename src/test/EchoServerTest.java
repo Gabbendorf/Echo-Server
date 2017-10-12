@@ -12,29 +12,26 @@ import static org.junit.Assert.assertEquals;
 
 public class EchoServerTest {
 
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final String usersInput = "\nhello";
+    private ByteArrayOutputStream output;
 
     @Before
-    public void setUpStreams() {
-        System.setOut(new PrintStream(outContent));
-        System.setIn(new ByteArrayInputStream(usersInput.getBytes()));
+    public void setUp() {
+        output = new ByteArrayOutputStream();
     }
 
     @Test
     public void promptsToTypeSomething() {
-        EchoServer echoServer = new EchoServer();
+        EchoServer echoServer = newEchoServerWith("");
 
         echoServer.promptToType();
 
-        assertEquals("Hi! Please type anything:\n", outContent.toString());
+        assertEquals("Hi! Please type anything:\n", output.toString());
     }
+
 
     @Test
     public void returnsUsersInput() {
-        EchoServer echoServer = new EchoServer();
-        String input = "hello";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        EchoServer echoServer = newEchoServerWith("hello");
 
         String usersInput = echoServer.getWords();
 
@@ -43,32 +40,36 @@ public class EchoServerTest {
 
     @Test
     public void emptyStringIsNotAccepted(){
-        EchoServer echoServer = new EchoServer();
-        String input = "\nhello";
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
+        EchoServer echoServer = newEchoServerWith("\nhello");
 
         String usersInput = echoServer.getWords();
 
-        assertEquals("Please type at least 1 word:\n", outContent.toString());
+        assertEquals("Please type at least 1 word:\n", output.toString());
         assertEquals("hello", usersInput);
     }
 
+
     @Test
     public void printsReversedSingleWord() {
-        EchoServer echoServer = new EchoServer();
+        EchoServer echoServer = newEchoServerWith("");
 
         echoServer.printReversedEcho("hello");
 
-        assertEquals("olleh\n", outContent.toString());
+        assertEquals("olleh\n", output.toString());
     }
 
     @Test
     public void printsReversedMultipleWords() {
-        EchoServer echoServer = new EchoServer();
+        EchoServer echoServer = newEchoServerWith("");
 
         echoServer.printReversedEcho("Hello World");
 
-        assertEquals("dlroW olleH\n", outContent.toString());
+        assertEquals("dlroW olleH\n", output.toString());
     }
 
+    private EchoServer newEchoServerWith(String input_string) {
+        ByteArrayInputStream input = new ByteArrayInputStream(input_string.getBytes());
+
+        return new EchoServer(new PrintStream(output), input);
+    }
 }

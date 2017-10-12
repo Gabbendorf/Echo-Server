@@ -14,6 +14,10 @@ public class EchoServer {
         this.input = new Scanner(input);
     }
 
+    public void run() {
+        promptToType();
+        printReversedEcho(getWords());
+    }
     public void promptToType() {
         this.output.println("Hi! Please type anything:");
     }
@@ -30,5 +34,4 @@ public class EchoServer {
     public void printReversedEcho(String usersWords) {
         this.output.println(new StringBuilder(usersWords).reverse().toString());
     }
-
 }

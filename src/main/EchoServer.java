@@ -20,19 +20,19 @@ public class EchoServer {
     }
 
     private void promptToType() {
-        this.output.println("Hi! Please type anything:");
+        output.println("Hi! Please type anything:");
     }
 
     private String getWords() {
         String words = input.nextLine();
         while (words.length() == 0) {
-            this.output.println("Please type at least 1 word:");
+            output.println("Please type at least 1 word:");
             words = input.nextLine();
         }
         return words;
     }
 
     private void printReversedEcho(String usersWords) {
-        this.output.println(new StringBuilder(usersWords).reverse().toString());
+        output.println(new StringBuilder(usersWords).reverse().toString());
     }
 }

@@ -1,26 +1,38 @@
 package main;
 
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.Scanner;
 
 public class EchoServer {
 
-    Scanner in = new Scanner(System.in);
+    private PrintStream output;
+    private Scanner input;
 
-    public void promptToType() {
-        System.out.println("Hi! Please type anything:");
+    public EchoServer(PrintStream output, InputStream input) {
+        this.output = output;
+        this.input = new Scanner(input);
     }
 
-    public String getWords() {
-        String words = in.nextLine();
+    public void run() {
+        promptToType();
+        printReversedEcho(getWords());
+    }
+
+    private void promptToType() {
+        output.println("Hi! Please type anything:");
+    }
+
+    private String getWords() {
+        String words = input.nextLine();
         while (words.length() == 0) {
-            System.out.println("Please type at least 1 word:");
-            words = in.nextLine();
+            output.println("Please type at least 1 word:");
+            words = input.nextLine();
         }
         return words;
     }
 
-    public void printReversedEcho(String usersWords) {
-        System.out.println(new StringBuilder(usersWords).reverse().toString());
+    private void printReversedEcho(String usersWords) {
+        output.println(new StringBuilder(usersWords).reverse().toString());
     }
-
 }
